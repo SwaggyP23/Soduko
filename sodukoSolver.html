@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soduko solver</title>
+</head>
+<style>
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }    
+
+    /* Firefox */
+    input[type=number] {
+    -moz-appearance: textfield;
+    border: none;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    font-size: 30px;
+    line-height: 40px;
+    }
+
+    td {
+        border-right: 1px solid;
+        border-bottom: 1px solid;
+    }
+
+    .borderRight {
+        border-right: 2px solid;
+    }
+
+    .borderBottom {
+        border-bottom: 2px solid;
+    }
+</style>
+<body>
+    <form id="soduko">
+        <table>
+            <tr>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+            </tr>                        
+            <tr>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+            </tr>                        
+            <tr>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+            </tr>           
+            <tr>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+            </tr>                        
+            <tr>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+            </tr>                        
+            <tr>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderBottom"><input type="number" name="grid" min="1" max="9" value="0"></td>
+            </tr>           
+            <tr>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+            </tr>                        
+            <tr>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+            </tr>                        
+            <tr>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td class="borderRight"><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+                <td><input type="number" name="grid" min="1" max="9" value="0"></td>
+            </tr>                                                 
+        </table>     
+        <input type="button" value="solve" onclick="solve()">
+        <input type="reset" value="clear">
+        <br>        
+    </form>    
+</body>
+<script>
+
+    let grid = []
+
+    function isPresentinRow(grid, row, number){
+        for(let i=0; i<9; i++){
+            if(grid[row*9 + i] === number) return true;
+        }
+        return false;
+    }
+
+    function isPresentinCol(grid, col, number){
+        for(let i=0; i<9; i++){
+            if(grid[i*9 + col] === number) return true;
+        }
+        return false;
+    }
+
+    function isPresentinBox(grid, row, col, number){
+        for(let i=0; i<3; i++){
+            for(let j=0; j<3; j++){
+                if(grid[(row+i)*9 + col + j] === number) return true; 
+            }
+        }
+        return false;
+    }
+
+    function isValidPlace(grid, row, col, number){
+        return !isPresentinCol(grid, col, number) && !isPresentinRow(grid, row, number)
+                && !isPresentinBox(grid, row - row%3, col - col%3, number)
+    }
+
+    function findEmptyPlace(grid){
+        for(let row=0; row<9; row++){
+            for(let col=0; col<9; col++){                
+                 if(grid[row*9 + col] === 0) return [row, col]
+            }
+        }
+        return [-1, -1];
+    }
+
+    function sodukoSolver(){
+        let [row, col] = findEmptyPlace(grid);                        
+        if(row === -1 || col === -1){
+            return true;
+        }
+        for(let i=1; i<=9; i++){            
+            if(isValidPlace(grid, row, col, i)){
+                grid[row*9 + col] = i;                           
+                if(sodukoSolver()){
+                    return true;
+                }
+                grid[row*9 + col] = 0;
+            }
+        }
+        return false;
+    }
+
+    function solve(){
+
+        let form = document.querySelector('#soduko')        
+        let nodes = form.grid;        
+        grid = []
+
+        for(i=0; i<nodes.length; i++){
+            grid.push(Number(nodes[i].value))
+        }
+
+        sodukoSolver()           
+
+        for(i=0; i<nodes.length; i++){
+            nodes[i].value = grid[i]
+        }
+    }
+</script>
+</html>
